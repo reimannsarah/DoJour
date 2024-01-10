@@ -17,3 +17,9 @@ test('should return 200', async () => {
   });
   expect(response.status).toBe(201);
 });
+
+test('should return array of entries', async () => {
+  const response = await fetch(`${url}/api/Entries`);
+  const entries = await response.json();
+  expect(entries).toBeInstanceOf(Array);
+});
