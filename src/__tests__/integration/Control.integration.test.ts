@@ -1,0 +1,19 @@
+const fetch = require('node-fetch');
+
+const url = 'https://dojour.azurewebsites.net/';
+
+test('should return 200', async () => {
+  const response = await fetch(`${url}/api/Entries`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      "title": "Michael Keaton",
+      "subject": "Dragons",
+      "date": "2020-01-01",
+      "text": "I love dragons"
+    })
+  });
+  expect(response.status).toBe(201);
+});
