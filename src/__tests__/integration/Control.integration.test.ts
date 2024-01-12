@@ -23,3 +23,11 @@ test('should return array of entries', async () => {
   const entries = await response.json();
   expect(entries).toBeInstanceOf(Array);
 });
+
+// test('should delete an entry and return 200', async () => {
+//   const id = 1;
+//   const response = await fetch(`${url}/api/Entries/${id}`, {
+//     method: 'DELETE'
+//   });
+//   expect(response.status).toBe(200);
+// });

@@ -4,10 +4,6 @@ import TextEntry from "../atoms/TextEntry";
 function Control () {
   const [home, sethome] = useState(true);
 
-  function handlePost() {
-    
-  }
-
   function handleHome() {
     sethome(true);
   }
