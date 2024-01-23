@@ -1,7 +1,9 @@
-const API_URL = 'https://do-jour-api.azurewebsites.net/'; 
+const API_URL = 'https://do-jour-api.azurewebsites.net/api'; 
 
 interface User {
-  username: string;
+  firstName?: string;
+  lastName?: string;
+  email: string;
   password: string;
 }
 
