@@ -1,4 +1,3 @@
-import React from 'react'
 import Login from '../sub/Login'
 import Register from '../sub/Register'
 
@@ -10,7 +9,7 @@ const Landing = (props: LandingProps) => {
   return (
     <div>
       <Login onSubmit={props.onLogin}/>
-      <Register />
+      <Register onSubmit={props.onLogin}/>
     </div>
   )
 }
