@@ -1,6 +1,6 @@
 const API_URL = 'https://do-jour-api.azurewebsites.net/api'; 
 
-interface User {
+export interface User {
   firstName?: string;
   lastName?: string;
   email: string;
@@ -17,19 +17,28 @@ interface Entry {
 }
 
 export async function registerUser(user: User) {
-  const response = await fetch(`${API_URL}/users/register`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(user)
-  });
+  try {
+    const response = await fetch(`${API_URL}/users/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user)
+    });
 
-  if (!response.ok) {
-    throw new Error(`Error: ${response.statusText}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.text();
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error('A problem occurred with the fetch operation: ' + error.message);
+    } else {
+      console.error('A problem occurred with the fetch operation');
+    }
+    throw error;
   }
-
-  return response.json();
 }
 
 export async function loginUser(user: User) {
