@@ -1,13 +1,16 @@
 const API_URL = 'https://do-jour-api.azurewebsites.net/api'; 
+// const API_URL = 'https://localhost:5001/api';
 
 export interface User {
   firstName?: string;
   lastName?: string;
-  email: string;
-  password: string;
+  email?: string;
+  password?: string;
+  id?: string;
+  token?: string;
 }
 
-interface Entry {
+export interface Entry {
   entryId?: string;
   userId: string;
   title: string;
@@ -16,7 +19,12 @@ interface Entry {
   text: string;
 }
 
-export async function registerUser(user: User) {
+interface RegisterResponse {
+  message: string;
+  token: string;
+}
+
+export async function registerUser(user: User): Promise<RegisterResponse> {
   try {
     const response = await fetch(`${API_URL}/users/register`, {
       method: 'POST',
@@ -30,7 +38,12 @@ export async function registerUser(user: User) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    return response.text();
+    const text = await response.text();
+    const data = await JSON.parse(text);
+    console.log(text + 'eait it');
+
+    return data;
+
   } catch (error) {
     if (error instanceof Error) {
       console.error('A problem occurred with the fetch operation: ' + error.message);
@@ -73,8 +86,16 @@ export async function getEntryById(id: string) {
   return response.json();
 }
 
+export async function getEntriesByUserId(userId: string) {
+  const response = await fetch(`${API_URL}/users/${userId}`);
+  if (!response.ok) {
+    throw new Error(`Error: ${response.statusText}`);
+  }
+  return response.json();
+}
+
 export async function createEntry(entry: Entry) {
-  const response = await fetch(API_URL, {
+  const response = await fetch(`${API_URL}/entries`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
