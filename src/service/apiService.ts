@@ -6,7 +6,7 @@ export interface User {
   lastName?: string;
   email?: string;
   password?: string;
-  id?: string;
+  userId?: string;
   token?: string;
 }
 
@@ -22,6 +22,7 @@ export interface Entry {
 interface RegisterResponse {
   message: string;
   token: string;
+  userId: string;
 }
 
 export async function registerUser(user: User): Promise<RegisterResponse> {
@@ -87,7 +88,7 @@ export async function getEntryById(id: string) {
 }
 
 export async function getEntriesByUserId(userId: string) {
-  const response = await fetch(`${API_URL}/users/${userId}`);
+  const response = await fetch(`${API_URL}/entries/user/${userId}`);
   if (!response.ok) {
     throw new Error(`Error: ${response.statusText}`);
   }
@@ -131,3 +132,4 @@ export async function deleteEntry(id: string) {
   }
   return response.json();
 }
+
