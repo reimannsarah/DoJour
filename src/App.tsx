@@ -4,6 +4,7 @@ import { Dashboard } from "./components/main/Dashboard";
 import { UserContext } from "./components/main/UserContext";
 import { useState, useEffect } from "react";
 import { User } from "./service/apiService";
+import Layout from "./components/main/Layout";
 
 function App() {
   const initialUser = {
@@ -45,7 +46,9 @@ function App() {
     <UserContext.Provider
       value={{ user, setUser, isLoggedIn, handleLogin, handleLogout }}
     >
-      {!isLoggedIn ? <LandingPage onLogin={handleLogin} /> : <Dashboard />}
+      <Layout>
+          {!isLoggedIn ? <LandingPage onLogin={handleLogin} /> : <Dashboard />}
+      </Layout>
     </UserContext.Provider>
   );
 }
