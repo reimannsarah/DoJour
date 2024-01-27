@@ -6,12 +6,23 @@ import { useState, useEffect } from "react";
 import { User } from "./service/apiService";
 
 function App() {
-  const [user, setUser] = useState<User | null>(null);
+  const initialUser = {
+    userId: "",
+    username: "",
+    password: "",
+    token: "",
+  };
+  const [user, setUser] = useState<User>(initialUser);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
+    const storedUser = localStorage.getItem("user");
     const token = localStorage.getItem("token");
-    setIsLoggedIn(!!token);
+
+    if (storedUser && token) {
+      setUser(JSON.parse(storedUser));
+      setIsLoggedIn(true);
+    }
   }, []);
 
   const handleLogin = (user: User) => {
@@ -23,13 +34,17 @@ function App() {
   };
 
   const handleLogout = () => {
-    setUser(null);
+    setUser(initialUser);
     setIsLoggedIn(false);
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("userId");
   };
 
   return (
-    <UserContext.Provider value={{ user, setUser, isLoggedIn, handleLogin, handleLogout }}>
+    <UserContext.Provider
+      value={{ user, setUser, isLoggedIn, handleLogin, handleLogout }}
+    >
       {!isLoggedIn ? <LandingPage onLogin={handleLogin} /> : <Dashboard />}
     </UserContext.Provider>
   );
