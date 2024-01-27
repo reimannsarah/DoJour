@@ -11,7 +11,7 @@ function Entries( props: EntriesProps ) {
   const [entries, setEntries] = useState<Entry[]>([]);
 
   useEffect(() => {
-    getEntriesByUserId(user!.userId)
+    getEntriesByUserId(user!.userId || "")
       .then((entries) => setEntries(entries))
       .catch((error) => console.log(error));
   }, [user, props.lastSubmission]);
