@@ -17,7 +17,7 @@ function Entries( props: EntriesProps ) {
   }, [user, props.lastSubmission]);
 
   return (
-    <div>
+    <div className='text-white'>
       {entries.length === 0 ? (
         <p>No entries yet</p>
       ) : (
