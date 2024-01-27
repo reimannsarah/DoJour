@@ -2,19 +2,22 @@ import { useContext, useState } from "react";
 import { UserContext } from "../main/UserContext";
 import { Entry, createEntry } from "../../service/apiService";
 
-const TextEntry = () => {
+interface TextEntryProps {
+  onSubmission: () => void;
+}
+
+const TextEntry = (props: TextEntryProps) => {
   const { user } = useContext(UserContext) || {};
   const [entry, setEntry] = useState<Entry>({
     text: "",
     title: "",
     date: "",
     subject: "",
-    userId: user?.id || "",
+    userId: user!.userId || "",
   });
   const [error, setError] = useState<string | null>(null);
 
   const handleSave = async (e: React.FormEvent) => {
-    console.log(entry)
     e.preventDefault();
 
     try {
@@ -24,24 +27,45 @@ const TextEntry = () => {
         title: "",
         date: "",
         subject: "",
-        userId: user?.id || "",
+        userId: user!.userId || "",
       });
+      console.log("Entry created");
     } catch (err) {
       console.error(error);
       setError("Failed to create entry");
     }
+    props.onSubmission();
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setEntry({ ...entry, [e.target.name]: e.target.value });
-  }
+  };
 
   return (
     <div className="text-form">
       <form onSubmit={handleSave} className="text-entry">
-        <input type="text" name="title" value={entry.title} onChange={handleChange} placeholder="These are my thoughts today" />
-        <input type="text" name="subject" value={entry.subject} onChange={handleChange} placeholder="Worms and other things" />
-        <input type="date" name="date" value={entry.date}onChange={handleChange}/>
+        <input
+          type="text"
+          name="title"
+          value={entry.title}
+          onChange={handleChange}
+          placeholder="These are my thoughts today"
+        />
+        <input
+          type="text"
+          name="subject"
+          value={entry.subject}
+          onChange={handleChange}
+          placeholder="Worms and other things"
+        />
+        <input
+          type="date"
+          name="date"
+          value={entry.date}
+          onChange={handleChange}
+        />
         <textarea
           name="text"
           value={entry.text}
