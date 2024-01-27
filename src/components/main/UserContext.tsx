@@ -3,7 +3,7 @@ import { User } from '../../service/apiService';
 
 type UserContextType = {
   user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  setUser: React.Dispatch<React.SetStateAction<User>>;
   isLoggedIn: boolean;
   handleLogin: (user: User) => void;
   handleLogout: () => void;
