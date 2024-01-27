@@ -1,5 +1,7 @@
 import { registerUser, User } from "../../service/apiService";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { slideInFromRight } from "../../../utils/motion";
 
 interface RegisterProps {
   onSubmit: (user: User) => void;
@@ -28,10 +30,18 @@ const Register = (props: RegisterProps) => {
   };
 
   return (
-    <div>
-      {error && <p>{error}</p>}
-      <form onSubmit={handleSubmit}>
+    <motion.div
+    variants={slideInFromRight(0.7)}
+    initial='hidden'
+    animate='visible'
+    >
+      <form
+        onSubmit={handleSubmit}
+        className="bg-secondary py-10 px-24 flex flex-col gap-3 items-center w-2/5 mx-auto rounded-lg"
+      >
+        <h1>{error || 'Register new user'}</h1>
         <input
+          className="bg-primary p-2 rounded-lg w-full text-white"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
           name="firstName"
@@ -39,6 +49,7 @@ const Register = (props: RegisterProps) => {
           placeholder="First Name"
         />
         <input
+          className="bg-primary p-2 rounded-lg w-full text-white"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
           name="lastName"
@@ -46,6 +57,7 @@ const Register = (props: RegisterProps) => {
           placeholder="Last Name"
         />
         <input
+          className="bg-primary p-2 rounded-lg w-full text-white"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           name="email"
@@ -53,15 +65,20 @@ const Register = (props: RegisterProps) => {
           placeholder="Email"
         />
         <input
+          className="bg-primary p-2 rounded-lg w-full text-white"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           name="password"
           type="password"
           placeholder="Password"
         />
-        <input type="submit" value="Register" />
+        <input
+          type="submit"
+          value="Register"
+          className="border-2 border-primary px-2 rounded-lg cursor-pointer hover:bg-primary hover:text-white"
+        />
       </form>
-    </div>
+    </motion.div>
   );
 };
 
