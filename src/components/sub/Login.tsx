@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { User, loginUser } from '../../service/apiService'
+import { motion } from 'framer-motion'
+import { slideInFromLeft } from '../../../utils/motion'
 
 interface LoginProps { 
   onSubmit: (user: User) => void
@@ -23,10 +25,16 @@ const Login = (props: LoginProps) => {
     }
   }
   return (
-    <div>
+    <motion.div
+    variants={slideInFromLeft(0.4)}
+    initial='hidden'
+    animate='visible'
+    >
       {error && <p>{error}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='bg-secondary py-10 px-24 flex flex-col gap-3 items-center w-2/5 mx-auto rounded-lg'>
+      <h1>{error || 'Have an account?'}</h1>
         <input 
+        className='bg-primary p-2 rounded-lg w-full text-white'
         name="email"
         type="email" 
         placeholder="Email"
@@ -34,17 +42,19 @@ const Login = (props: LoginProps) => {
         onChange={e => setEmail(e.target.value)}
         />
         <input 
+        className='bg-primary p-2 rounded-lg w-full text-white'
         name="password"
         type="password" 
         value={password}
         onChange={e => setPassword(e.target.value)}
         placeholder="Password"/>
         <input 
+        className='border-2 border-primary px-2 rounded-lg cursor-pointer hover:bg-primary hover:text-white'
         type="submit" 
         value="Login"
         />
       </form>
-    </div>
+    </motion.div>
   )
 }
 
