@@ -36,7 +36,7 @@ export async function registerUser(user: User): Promise<RegisterResponse> {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(`Error: A user with this email already exists`);
     }
 
     const text = await response.text();
@@ -65,7 +65,7 @@ export async function loginUser(user: User) {
   });
 
   if (!response.ok) {
-    throw new Error(`Error: ${response.statusText}`);
+    throw new Error(`Error: User Not Found`);
   }
 
   return response.json();
