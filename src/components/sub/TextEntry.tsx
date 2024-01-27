@@ -44,37 +44,43 @@ const TextEntry = (props: TextEntryProps) => {
   };
 
   return (
-    <div className="text-form">
-      <form onSubmit={handleSave} className="text-entry">
+    <div className="m-10">
+      <form onSubmit={handleSave} className="flex flex-col gap-5">
         <input
+          className="p-2 rounded-lg"
           type="text"
           name="title"
           value={entry.title}
           onChange={handleChange}
           placeholder="These are my thoughts today"
         />
-        <input
-          type="text"
-          name="subject"
-          value={entry.subject}
-          onChange={handleChange}
-          placeholder="Worms and other things"
-        />
-        <input
-          type="date"
-          name="date"
-          value={entry.date}
-          onChange={handleChange}
-        />
+        <div className="flex flex-row gap-5">
+          <input
+            className="p-2 rounded-lg"
+            type="text"
+            name="subject"
+            value={entry.subject}
+            onChange={handleChange}
+            placeholder="Worms and other things"
+          />
+          <input
+            className="p-2 rounded-lg"
+            type="date"
+            name="date"
+            value={entry.date}
+            onChange={handleChange}
+          />
+        </div>
         <textarea
+          className="p-2 rounded-lg"
           name="text"
           value={entry.text}
           onChange={handleChange}
           placeholder="Dear Diary, today I stuffed a bunch of olives into the DVD player and then I remembered that I don't have a DVD player."
           cols={100}
-          rows={50}
+          rows={25}
         ></textarea>
-        <input type="submit"></input>
+        <input type="submit" className="text-white"></input>
       </form>
     </div>
   );
