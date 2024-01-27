@@ -1,8 +1,9 @@
 import Login from '../sub/Login'
 import Register from '../sub/Register'
+import { User } from '../../service/apiService'
 
 interface LandingProps {
-  onLogin: () => void
+  onLogin: (user: User) => void
 }
 
 const Landing = (props: LandingProps) => {
