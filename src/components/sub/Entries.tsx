@@ -2,23 +2,19 @@ import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../main/UserContext';
 import { Entry, getEntriesByUserId } from '../../service/apiService';
 
-function Entries() {
+interface EntriesProps {
+  lastSubmission: Date | null;
+}
+
+function Entries( props: EntriesProps ) {
   const { user } = useContext(UserContext) || {};
   const [entries, setEntries] = useState<Entry[]>([]);
 
   useEffect(() => {
-    if (user) {
-      getEntriesByUserId(user?.id || '')
-      .then((entries) => setEntries(entries));
-      try {
-        getEntriesByUserId(user?.id || '')
-          .then((entries) => setEntries(entries))
-          .catch((error) => console.log(error));
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }, [user]);
+    getEntriesByUserId(user!.userId)
+      .then((entries) => setEntries(entries))
+      .catch((error) => console.log(error));
+  }, [user, props.lastSubmission]);
 
   return (
     <div>
