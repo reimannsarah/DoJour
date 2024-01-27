@@ -1,8 +1,8 @@
-import { registerUser } from "../../service/apiService";
+import { registerUser, User } from "../../service/apiService";
 import { useState } from "react";
 
 interface RegisterProps {
-  onSubmit: () => void;
+  onSubmit: (user: User) => void;
 }
 
 const Register = (props: RegisterProps) => {
@@ -15,15 +15,15 @@ const Register = (props: RegisterProps) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const user = await registerUser({ firstName, lastName, email, password });
-      console.log(user)
-      localStorage.setItem("user", JSON.stringify(user));
-      localStorage.setItem("token", user.token);
-      props.onSubmit();
+      const user: User = { firstName, lastName, email, password };
+      const response = await registerUser(user);
+      localStorage.setItem("user", JSON.stringify(response));
+      localStorage.setItem("token", response.token);
+      props.onSubmit(user);
     } catch (error) {
       setError((error as Error).message);
-      console.log(error)
     }
+    console.log("handleSubmit finished");
   };
 
   return (
@@ -32,30 +32,33 @@ const Register = (props: RegisterProps) => {
       <form onSubmit={handleSubmit}>
         <input
           value={firstName}
-          onChange={e => setFirstName(e.target.value)}
+          onChange={(e) => setFirstName(e.target.value)}
           name="firstName"
           type="text"
           placeholder="First Name"
         />
-        <input value={lastName} onChange={e => setLastName(e.target.value)} name="lastName" type="text" placeholder="Last Name" />
+        <input
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          name="lastName"
+          type="text"
+          placeholder="Last Name"
+        />
         <input
           value={email}
-          onChange={e => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           name="email"
           type="text"
           placeholder="Email"
         />
         <input
           value={password}
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           name="password"
           type="password"
           placeholder="Password"
         />
-        <input
-        type="submit" 
-        value="Register" 
-        />
+        <input type="submit" value="Register" />
       </form>
     </div>
   );
