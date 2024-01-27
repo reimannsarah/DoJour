@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { loginUser } from '../../service/apiService'
+import { User, loginUser } from '../../service/apiService'
 
 interface LoginProps { 
-  onSubmit: () => void
+  onSubmit: (user: User) => void
 }
 
 
@@ -17,7 +17,7 @@ const Login = (props: LoginProps) => {
       const user = await loginUser({email, password})
       localStorage.setItem('user', JSON.stringify(user))
       localStorage.setItem('token', user.token)
-      props.onSubmit();
+      props.onSubmit(user);
     } catch (error) {
       setError((error as Error).message)
     }
