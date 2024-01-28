@@ -24,8 +24,6 @@ const TextEntry = (props: TextEntryProps) => {
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(entry);
-    console.log(user);
 
     try {
       await createEntry(entry);
@@ -36,8 +34,6 @@ const TextEntry = (props: TextEntryProps) => {
         subject: "",
         userId: user!.userId!,
       });
-      console.log(entry);
-      console.log("Entry created");
     } catch (err) {
       console.error(error);
       setError("Failed to create entry");
