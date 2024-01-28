@@ -48,7 +48,7 @@ function Entries(props: EntriesProps) {
             </div>
             <p>RE: {entry.subject}</p>
             <p>{entry.text.substring(0, 50)}...</p>
-            <div onClick={() => deleteAndFetchEntries(entry.entryId)} className="relative">
+            <div onClick={() => deleteAndFetchEntries(entry!.entryId!)} className="relative">
               <TrashIcon className="absolute h-5 w-5 bottom-0 right-0 text-darkTertiary"/>
             </div>
           </motion.div>
