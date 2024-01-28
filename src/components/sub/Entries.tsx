@@ -17,13 +17,15 @@ function Entries( props: EntriesProps ) {
   }, [user, props.lastSubmission]);
 
   return (
-    <div className='text-white'>
+    <div className='text-white w-2/5 p-3'>
       {entries.length === 0 ? (
         <p>No entries yet</p>
       ) : (
         entries.map((entry, index) => (
           <div key={index}>
             <h1>{entry.title}</h1>
+            <p>{entry.subject}</p>
+            <p>{entry.date}</p>
           </div>
         ))
       )}
