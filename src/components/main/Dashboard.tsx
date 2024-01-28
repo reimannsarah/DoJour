@@ -57,21 +57,27 @@ export const Dashboard = () => {
             <p className="text-darkTertiary">{currentEntry?.date}</p>
           </div>
           <p className="p-10 text-white">{currentEntry?.text}</p>
+          <div className="absolute flex flex-row right-10 bottom-10 gap-5">
           <button
             onClick={() => {
               deleteEntry(currentEntry!.entryId!);
               setModalIsOpen(false);
               getEntriesByUserId(user!.user!.userId!);
             }}
-            className="absolute bg-secondary text-white rounded-lg p-3 right-10 bottom-10"
+            className="bg-secondary text-white rounded-lg py-3 px-5 shadow-md hover:bg-primary"
           >
             Delete
           </button>
-          <button onClick={() => {
+          <button 
+          onClick={() => {
             setCurrentEntry(currentEntry);
             setIsEditing(true);
             setModalIsOpen(false);
-          }}>Update</button>
+          }}
+          className="bg-secondary text-white rounded-lg py-3 px-5 shadow-md hover:bg-primary"
+          >
+            Update</button>
+          </div>
         </Modal>
       </div>
     </div>
