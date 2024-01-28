@@ -5,8 +5,10 @@ import { UserContext } from "./components/main/UserContext";
 import { useState, useEffect } from "react";
 import { User } from "./service/apiService";
 import Layout from "./components/main/Layout";
+import Modal from "react-modal";
 
 function App() {
+  Modal.setAppElement('#root');
   const initialUser = {
     userId: "",
     username: "",
