@@ -7,7 +7,9 @@ interface TextEntryProps {
 }
 
 const TextEntry = (props: TextEntryProps) => {
+
   const { user } = useContext(UserContext) || {};
+  console.log(user?.userId);
   const [entry, setEntry] = useState<Entry>({
     text: "",
     title: "",
@@ -19,6 +21,8 @@ const TextEntry = (props: TextEntryProps) => {
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log(entry);
+    console.log(user)
 
     try {
       await createEntry(entry);
@@ -27,8 +31,9 @@ const TextEntry = (props: TextEntryProps) => {
         title: "",
         date: "",
         subject: "",
-        userId: user!.userId || "",
+        userId: user!.userId!,
       });
+      console.log(entry);
       console.log("Entry created");
     } catch (err) {
       console.error(error);
