@@ -124,12 +124,13 @@ export async function updateEntry(id: string, entry: Entry) {
 }
 
 export async function deleteEntry(id: string) {
-  const response = await fetch(`${API_URL}/${id}`, {
+  console.log(id);
+  const response = await fetch(`${API_URL}/entries/${id}`, {
     method: 'DELETE'
   });
   if (!response.ok) {
     throw new Error(`Error: ${response.statusText}`);
   }
-  return response.json();
+  return response.text();
 }
 
