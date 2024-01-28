@@ -11,7 +11,7 @@ export const Dashboard = () => {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mt-10">
       <div className="flex flex-row justify-evenly">
         <Entries lastSubmission={lastSubmission} />
         <TextEntry onSubmission={handleSubmission} />
