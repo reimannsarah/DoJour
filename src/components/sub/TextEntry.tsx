@@ -4,9 +4,12 @@ import { Entry, createEntry } from "../../service/apiService";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../../utils/motion";
 
-interface TextEntryProps {
+type TextEntryProps = {
   onSubmission: () => void;
-}
+  setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  modalIsOpen: boolean;
+  setCurrentEntry: React.Dispatch<React.SetStateAction<Entry | null>>;
+};
 
 const TextEntry = (props: TextEntryProps) => {
   const { user } = useContext(UserContext) || {};
@@ -16,7 +19,6 @@ const TextEntry = (props: TextEntryProps) => {
     date: "",
     subject: "",
     userId: user!.userId!,
-    entryId: "",
   });
   const [error, setError] = useState<string | null>(null);
 
