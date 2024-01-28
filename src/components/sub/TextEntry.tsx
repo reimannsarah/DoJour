@@ -15,7 +15,8 @@ const TextEntry = (props: TextEntryProps) => {
     title: "",
     date: "",
     subject: "",
-    userId: user!.userId || "",
+    userId: user!.userId!,
+    entryId: "",
   });
   const [error, setError] = useState<string | null>(null);
 
@@ -92,7 +93,7 @@ const TextEntry = (props: TextEntryProps) => {
             ></textarea>
           </div>
         </div>
-        <input type="submit" value="Save to list" className="text-white opacity-70 bg-secondary w-2/5 my-0 mx-auto p-2 rounded-lg font-header"></input>
+        <input type="submit" value="Save to list" className="text-white opacity-70 bg-tertiary w-2/5 my-0 mx-auto p-2 rounded-lg font-header"></input>
       </form>
     </motion.div>
   );
