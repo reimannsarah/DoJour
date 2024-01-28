@@ -110,7 +110,7 @@ export async function createEntry(entry: Entry) {
 }
 
 export async function updateEntry(id: string, entry: Entry) {
-  const response = await fetch(`${API_URL}/${id}`, {
+  const response = await fetch(`${API_URL}/entries/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -120,7 +120,7 @@ export async function updateEntry(id: string, entry: Entry) {
   if (!response.ok) {
     throw new Error(`Error: ${response.statusText}`);
   }
-  return response.json();
+  return response.text();
 }
 
 export async function deleteEntry(id: string) {
