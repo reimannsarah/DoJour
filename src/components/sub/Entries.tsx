@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../main/UserContext";
 import { Entry, getEntriesByUserId } from "../../service/apiService";
 import { motion } from "framer-motion";
-import { slideInFromLeft } from "../../../utils/motion";
+import { slideInFromLeft, fadeIn } from "../../../utils/motion";
 import { deleteEntry } from "../../service/apiService";
 import { TrashIcon } from "@heroicons/react/16/solid";
 
@@ -32,7 +32,16 @@ function Entries(props: EntriesProps) {
   return (
     <div className="text-white w-2/5 p-3 overflow-y-auto h-[900px]">
       {entries.length === 0 ? (
-        <p>No entries yet</p>
+        <motion.div 
+        variants={fadeIn(0.5)}
+        initial='hidden'
+        animate='visible'
+        className="flex items-center justify-center h-full"
+        >
+          <p className="font-header transform -rotate-90 text-7xl opacity-70">
+            No entries yet
+          </p>
+        </motion.div>
       ) : (
         entries.map((entry, index) => (
           <motion.div
