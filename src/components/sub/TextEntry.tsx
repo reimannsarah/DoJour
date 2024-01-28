@@ -1,15 +1,15 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../main/UserContext";
 import { Entry, createEntry } from "../../service/apiService";
+import { motion } from "framer-motion";
+import { fadeIn } from "../../../utils/motion";
 
 interface TextEntryProps {
   onSubmission: () => void;
 }
 
 const TextEntry = (props: TextEntryProps) => {
-
   const { user } = useContext(UserContext) || {};
-  console.log(user?.userId);
   const [entry, setEntry] = useState<Entry>({
     text: "",
     title: "",
@@ -22,7 +22,7 @@ const TextEntry = (props: TextEntryProps) => {
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log(entry);
-    console.log(user)
+    console.log(user);
 
     try {
       await createEntry(entry);
@@ -49,45 +49,52 @@ const TextEntry = (props: TextEntryProps) => {
   };
 
   return (
-    <div className="m-10">
+    <motion.div 
+    variants={fadeIn(0.7)}
+    initial='hidden'
+    animate='visible'
+    className="w-4/5 p-10"
+    >
       <form onSubmit={handleSave} className="flex flex-col gap-5">
         <input
-          className="p-2 rounded-lg"
+          className="p-5 rounded-lg bg-transparent text-[50px] text-white text-center font-header"
           type="text"
           name="title"
           value={entry.title}
           onChange={handleChange}
-          placeholder="These are my thoughts today"
+          placeholder="Title"
         />
-        <div className="flex flex-row gap-5">
+        <div className="flex flex-row justify-evenly gap-10">
           <input
-            className="p-2 rounded-lg"
+            className="p-2 rounded-lg w-full bg-secondary opacity-70 text-white text-[30px] text-center placeholder-white font-header"
             type="text"
             name="subject"
             value={entry.subject}
             onChange={handleChange}
-            placeholder="Worms and other things"
+            placeholder="Subject"
           />
           <input
-            className="p-2 rounded-lg"
+            className="p-2 rounded-lg w-full bg-secondary opacity-70 text-white text-[20px] text-center font-header"
             type="date"
             name="date"
             value={entry.date}
             onChange={handleChange}
           />
         </div>
-        <textarea
-          className="p-2 rounded-lg"
-          name="text"
-          value={entry.text}
-          onChange={handleChange}
-          placeholder="Dear Diary, today I stuffed a bunch of olives into the DVD player and then I remembered that I don't have a DVD player."
-          cols={100}
-          rows={25}
-        ></textarea>
-        <input type="submit" className="text-white"></input>
+        <div className="paper w-full opacity-80">
+          <div className="paper-content">
+            <textarea
+              className="p-2 rounded-lg"
+              name="text"
+              value={entry.text}
+              onChange={handleChange}
+              placeholder="Dear Diary, today I stuffed a bunch of olives into the DVD player and then I remembered that I don't have a DVD player."
+            ></textarea>
+          </div>
+        </div>
+        <input type="submit" value="Save to list" className="text-white opacity-70 bg-secondary w-2/5 my-0 mx-auto p-2 rounded-lg font-header"></input>
       </form>
-    </div>
+    </motion.div>
   );
 };
 
