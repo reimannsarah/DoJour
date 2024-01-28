@@ -84,7 +84,7 @@ const TextEntry = (props: TextEntryProps) => {
             onChange={handleChange}
           />
         </div>
-        <div className="paper w-full opacity-80">
+        <div className="paper w-full opacity-90">
           <div className="paper-content">
             <textarea
               className="p-2 rounded-lg"
