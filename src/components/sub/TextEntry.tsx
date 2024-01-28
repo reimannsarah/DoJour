@@ -95,7 +95,7 @@ const TextEntry = (props: TextEntryProps) => {
             ></textarea>
           </div>
         </div>
-        <input type="submit" value="Save to list" className="text-white opacity-70 bg-tertiary w-2/5 my-0 mx-auto p-2 rounded-lg font-header"></input>
+        <input type="submit" value="Save to list" className="text-white opacity-70 bg-tertiary w-2/5 my-0 mx-auto p-2 rounded-lg font-header cursor-pointer"></input>
       </form>
     </motion.div>
   );
