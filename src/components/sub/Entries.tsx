@@ -8,6 +8,9 @@ import { TrashIcon } from "@heroicons/react/16/solid";
 
 interface EntriesProps {
   lastSubmission: Date | null;
+  setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  modalIsOpen: boolean;
+  setCurrentEntry: React.Dispatch<React.SetStateAction<Entry | null>>;
 }
 
 function Entries(props: EntriesProps) {
@@ -25,16 +28,17 @@ function Entries(props: EntriesProps) {
     getEntriesByUserId(user!.userId || "")
       .then((entries) => setEntries(entries))
       .catch((error) => console.log(error));
-  }, [user, props.lastSubmission]);
+  }, [user, props.lastSubmission, props.modalIsOpen]);
 
   return (
-    <div className="text-white w-2/5 p-3">
+    <div className="text-white w-2/5 p-3 overflow-y-auto h-[900px]">
       {entries.length === 0 ? (
         <p>No entries yet</p>
       ) : (
         entries.map((entry, index) => (
           <motion.div
             key={index}
+            onClick={() => { props.setModalIsOpen(true); props.setCurrentEntry(entry); }}
             variants={slideInFromLeft(index * 0.3)}
             initial="hidden"
             animate="visible"
