@@ -23,7 +23,6 @@ function Entries(props: EntriesProps) {
     setEntries(updatedEntries);
   };
 
-
   useEffect(() => {
     getEntriesByUserId(user!.userId || "")
       .then((entries) => setEntries(entries))
@@ -38,11 +37,14 @@ function Entries(props: EntriesProps) {
         entries.map((entry, index) => (
           <motion.div
             key={index}
-            onClick={() => { props.setModalIsOpen(true); props.setCurrentEntry(entry); }}
+            onClick={() => {
+              props.setModalIsOpen(true);
+              props.setCurrentEntry(entry);
+            }}
             variants={slideInFromLeft(index * 0.3)}
             initial="hidden"
             animate="visible"
-            className="m-4 p-3 bg-tertiary opacity-80 rounded-lg"
+            className="m-4 p-3 bg-tertiary opacity-80 rounded-lg cursor-pointer"
           >
             <div className="flex flex-row justify-between">
               <h1 className="text-[25px] font-header text-darkTertiary">
@@ -52,8 +54,14 @@ function Entries(props: EntriesProps) {
             </div>
             <p>RE: {entry.subject}</p>
             <p>{entry.text.substring(0, 50)}...</p>
-            <div onClick={() => deleteAndFetchEntries(entry!.entryId!)} className="relative">
-              <TrashIcon className="absolute h-5 w-5 bottom-0 right-0 text-darkTertiary"/>
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+                deleteAndFetchEntries(entry!.entryId!);
+              }}
+              className="relative z-600"
+            >
+              <TrashIcon className="absolute h-5 w-5 bottom-0 right-0 text-darkTertiary cursor-pointer" />
             </div>
           </motion.div>
         ))
