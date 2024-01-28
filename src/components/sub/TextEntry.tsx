@@ -1,13 +1,16 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../main/UserContext";
-import { Entry, createEntry } from "../../service/apiService";
+import { Entry, createEntry, updateEntry } from "../../service/apiService";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../../utils/motion";
 
 type TextEntryProps = {
   onSubmission: () => void;
+  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
+  currentEntry: Entry | null;
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   modalIsOpen: boolean;
+  isEditing: boolean;
   setCurrentEntry: React.Dispatch<React.SetStateAction<Entry | null>>;
 };
 
@@ -41,11 +44,50 @@ const TextEntry = (props: TextEntryProps) => {
     props.onSubmission();
   };
 
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setEntry({ ...entry, [e.target.name]: e.target.value });
   };
+
+
+const handleUpdate = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  if (props.currentEntry) {
+    try {
+      await updateEntry(props.currentEntry!.entryId!, { ...entry });
+      props.onSubmission();
+      props.setIsEditing(false);
+      setEntry({
+        text: "",
+        title: "",
+        date: "",
+        subject: "",
+        userId: user!.userId!,
+      });
+
+    } catch (error) {
+      console.error('Error in updateEntry:', error);
+      setError((error as Error).message);
+    }
+  }
+};
+
+  useEffect(() => {
+    if (props.isEditing && props.currentEntry) {
+      setEntry(props.currentEntry);
+    } else {
+      setEntry({
+        text: "",
+        title: "",
+        date: "",
+        subject: "",
+        userId: user!.userId!,
+      });
+    }
+  }, [props.isEditing, props.currentEntry, user]);
 
   return (
     <motion.div 
@@ -54,7 +96,7 @@ const TextEntry = (props: TextEntryProps) => {
     animate='visible'
     className="w-4/5 p-10"
     >
-      <form onSubmit={handleSave} className="flex flex-col gap-5">
+      <form onSubmit={props.isEditing ? handleUpdate : handleSave} className="flex flex-col gap-5">
         <input
           className="p-5 rounded-lg bg-transparent text-[50px] text-white text-center font-header"
           type="text"
@@ -91,7 +133,7 @@ const TextEntry = (props: TextEntryProps) => {
             ></textarea>
           </div>
         </div>
-        <input type="submit" value="Save to list" className="text-white opacity-70 bg-tertiary w-2/5 my-0 mx-auto p-2 rounded-lg font-header cursor-pointer"></input>
+        <input type="submit" value="Save" className="text-white opacity-70 bg-tertiary w-2/5 my-0 mx-auto p-2 rounded-lg font-header cursor-pointer"></input>
       </form>
     </motion.div>
   );
