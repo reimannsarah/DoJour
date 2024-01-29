@@ -26,7 +26,7 @@ function Entries(props: EntriesProps) {
   useEffect(() => {
     getEntriesByUserId(user!.userId || "")
       .then((entries) => setEntries(entries))
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   }, [user, props.lastSubmission, props.modalIsOpen]);
 
   return (

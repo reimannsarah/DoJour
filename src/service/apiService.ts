@@ -68,7 +68,6 @@ export async function loginUser(user: User) {
   }
 
   const text = await response.text();
-  console.log(text);
   const data = await JSON.parse(text);
 
   return data;
@@ -127,7 +126,6 @@ export async function updateEntry(id: string, entry: Entry) {
 }
 
 export async function deleteEntry(id: string) {
-  console.log(id);
   const response = await fetch(`${API_URL}/entries/${id}`, {
     method: 'DELETE'
   });
