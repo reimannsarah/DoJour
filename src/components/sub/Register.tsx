@@ -22,6 +22,7 @@ const Register = (props: RegisterProps) => {
       localStorage.setItem("user", JSON.stringify(response));
       localStorage.setItem("token", response.token);
       localStorage.setItem("userId", response.userId);
+      localStorage.setItem("name", user!.firstName!);
       props.onSubmit(user);
     } catch (error) {
       setError((error as Error).message);
