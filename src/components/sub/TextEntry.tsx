@@ -129,7 +129,7 @@ const handleUpdate = async (e: React.FormEvent) => {
               name="text"
               value={entry.text}
               onChange={handleChange}
-              placeholder="Dear Diary, today I stuffed a bunch of olives into the DVD player and then I remembered that I don't have a DVD player."
+              placeholder="Dear Diary, today I took my dog for a walk around the block but the neighborhood seemed unfamiliar. After I fell into the first crater I knew something wasn't right. Somehow we had ended up on the moon!."
             ></textarea>
           </div>
         </div>
