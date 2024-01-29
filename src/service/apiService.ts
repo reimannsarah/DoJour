@@ -41,7 +41,6 @@ export async function registerUser(user: User): Promise<RegisterResponse> {
 
     const text = await response.text();
     const data = await JSON.parse(text);
-    console.log(text + 'eait it');
 
     return data;
 
@@ -68,7 +67,11 @@ export async function loginUser(user: User) {
     throw new Error(`Error: User Not Found`);
   }
 
-  return response.json();
+  const text = await response.text();
+  console.log(text);
+  const data = await JSON.parse(text);
+
+  return data;
 }
 
 export async function getAllEntries() {
