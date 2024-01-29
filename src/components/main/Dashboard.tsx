@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import Entries from "../sub/Entries";
 import TextEntry from "../sub/TextEntry";
+import Header from "../sub/Header";
 import { UserContext } from "./UserContext";
 import Button from "../sub/Button";
 import {
@@ -24,6 +25,7 @@ export const Dashboard = () => {
 
   return (
     <div className="relative flex flex-col mt-10">
+      <Header />
       <Button />
       <div className="flex flex-row justify-evenly">
         <Entries
